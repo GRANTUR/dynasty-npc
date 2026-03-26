@@ -114,8 +114,9 @@ Internet → OCI Instance (10.0.0.64)
 - **General Zhao** (§c red) — Weaponsmith villager, palace guard commander
 
 ### Secrets (NOT in Git)
-- RCON password: `a5f9c442d3f128f781a99370` (in `rbac-secrets.yml` only)
-- Prometheus basic auth: in `traefik-routes.yml` only (stripped from git)
+- RCON password: stored in `rbac-secrets.yml` on server only (not in git)
+- Prometheus basic auth: in `traefik-routes.yml` on server only (stripped from git)
+- **Never commit secrets to CLAUDE.md or any tracked file**
 
 ## Build & Deploy
 
