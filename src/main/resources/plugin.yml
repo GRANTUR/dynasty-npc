@@ -1,0 +1,23 @@
+name: DynastyNPC
+version: '${project.version}'
+main: com.highpalace.dynastynpc.DynastyNPC
+api-version: '1.21'
+description: AI-powered NPCs for High Palace - Center Kingdom
+author: GRANTUR
+commands:
+  dynastynpc:
+    description: Manage Dynasty NPCs
+    usage: /<command> <create|remove|list|reload>
+    aliases: [dnpc, npc]
+    permission: dynastynpc.admin
+  ask:
+    description: Talk to a nearby NPC
+    usage: /<command> <message>
+    aliases: [talk]
+permissions:
+  dynastynpc.admin:
+    description: Manage Dynasty NPCs
+    default: op
+  dynastynpc.talk:
+    description: Talk to NPCs
+    default: true

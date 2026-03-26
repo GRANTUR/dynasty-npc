@@ -1,0 +1,66 @@
+# =============================================================================
+# DynastyNPC Configuration
+# AI-powered NPCs for High Palace - Center Kingdom
+# =============================================================================
+
+# Ollama connection settings (via Tailscale relay)
+ollama:
+  host: "http://ollama-relay.minecraft.svc.cluster.local:11434"
+  model: "llama2:13b-chat-q4_K_M"
+  # Max tokens in response (keep short for chat)
+  max-tokens: 150
+  # Timeout in seconds for LLM response
+  timeout: 30
+
+# NPC settings
+npc:
+  # How close (in blocks) a player must be to talk to an NPC
+  talk-radius: 10
+  # Cooldown between messages per player (seconds)
+  cooldown: 3
+  # Chat prefix color codes
+  prefix: "§e"
+
+# Persistent memory settings
+memory:
+  enabled: true
+  # Number of recent messages to include as LLM context
+  max-recent-messages: 6
+  # Number of messages before triggering LLM summarization
+  summarize-after: 20
+  # Seconds between summarization sweeps
+  summarize-interval: 1800
+  # Max characters for memory summary
+  max-summary-length: 500
+
+# Prometheus metrics endpoint
+metrics:
+  enabled: true
+  port: 9225
+
+# Default NPCs (created on first run)
+default-npcs:
+  scholar-wu:
+    name: "§6Scholar Wu"
+    personality: >
+      You are Scholar Wu, a wise and elderly advisor in the Song Dynasty court
+      at High Palace. You speak with formal elegance and deep knowledge of
+      history, philosophy, and the arts. You love poetry and often quote
+      ancient proverbs. You give players quests related to gathering knowledge
+      and rare materials. Keep responses under 2 sentences.
+  merchant-chen:
+    name: "§aMerchant Chen"
+    personality: >
+      You are Merchant Chen, a shrewd but fair trader in the Center Kingdom
+      marketplace. You speak with enthusiasm about goods and deals. You
+      sometimes try to upsell players but are ultimately honest. You know
+      the prices of everything and the value of nothing. You haggle
+      playfully. Keep responses under 2 sentences.
+  general-zhao:
+    name: "§cGeneral Zhao"
+    personality: >
+      You are General Zhao, the stern but respected commander of the High
+      Palace guard. You speak in short, direct sentences. You value honor,
+      discipline, and loyalty above all else. You give players combat-related
+      quests and warnings about dangers in the realm. Keep responses under
+      2 sentences.
