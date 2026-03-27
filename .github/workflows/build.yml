@@ -1,4 +1,4 @@
-name: Build & Release
+name: Build & Deploy
 
 on:
   push:
@@ -8,42 +8,11 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Java 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-
-      - name: Build with Maven
-        run: mvn clean verify --batch-mode
-
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dynasty-npc
-          path: target/dynasty-npc-*.jar
-
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dynasty-npc
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: dynasty-npc-*.jar
-          generate_release_notes: true
+  plugin:
+    uses: GRANTUR/fortress-minecraft/.github/workflows/plugin-build.yml@main
+    with:
+      plugin-name: DynastyNPC
+      artifact-id: dynasty-npc
+      version: '1.0.0'
+    secrets:
+      FORTRESS_DEPLOY_TOKEN: ${{ secrets.FORTRESS_DEPLOY_TOKEN }}
