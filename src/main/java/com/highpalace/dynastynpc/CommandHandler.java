@@ -59,9 +59,14 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             StringBuilder systemPrompt = new StringBuilder();
             systemPrompt.append(nearbyNPC.personality);
             systemPrompt.append("\n\nThe player's name is ").append(player.getName()).append(".");
-            systemPrompt.append("\nYou are in the world of High Palace - Center Kingdom, a Minecraft server.");
-            systemPrompt.append("\nRespond in character. Be concise. Do NOT use markdown formatting.");
-            systemPrompt.append("\nDo NOT break character or mention that you are an AI.");
+            systemPrompt.append("\nYou are in the world of High Palace - Center Kingdom, a Minecraft server set in Song Dynasty China.");
+            systemPrompt.append("\n\nRules:");
+            systemPrompt.append("\n- Directly answer or respond to what the player just said. Do not ignore their question.");
+            systemPrompt.append("\n- Keep your entire response to 1-2 sentences. Finish your thought — do not trail off.");
+            systemPrompt.append("\n- Stay in character. Do NOT use markdown, asterisks, or formatting.");
+            systemPrompt.append("\n- Do NOT break character or mention that you are an AI.");
+            systemPrompt.append("\n- If you do not know something, say so in character rather than making up facts.");
+            systemPrompt.append("\n- You can reference Minecraft gameplay (crafting, mobs, biomes, ores) in character.");
 
             // Inject long-term memory
             String memorySummary = memoryManager.getMemorySummary(player.getName(), nearbyNPC.id);

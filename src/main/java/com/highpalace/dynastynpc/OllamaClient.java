@@ -125,7 +125,7 @@ public class OllamaClient {
 
                 Map<String, Object> options = new HashMap<>();
                 options.put("num_predict", maxTokens);
-                options.put("temperature", 0.8);
+                options.put("temperature", 0.65);
                 body.put("options", options);
 
                 String jsonBody = gson.toJson(body);
@@ -187,9 +187,9 @@ public class OllamaClient {
                     content = "*nods thoughtfully but says nothing*";
                 }
 
-                // Truncate if too long for chat
-                if (content.length() > 256) {
-                    content = content.substring(0, 253) + "...";
+                // Truncate at sentence boundary if too long for chat
+                if (content.length() > 300) {
+                    content = truncateAtSentence(content, 300);
                 }
 
                 return content;
@@ -282,5 +282,37 @@ public class OllamaClient {
                 return "";
             }
         });
+    }
+
+    /**
+     * Truncate text at the last sentence-ending punctuation within maxLen.
+     * Falls back to last space if no sentence boundary found.
+     */
+    private String truncateAtSentence(String text, int maxLen) {
+        if (text.length() <= maxLen) return text;
+
+        String sub = text.substring(0, maxLen);
+
+        // Try to cut at last sentence-ending punctuation
+        int lastEnd = -1;
+        for (int i = sub.length() - 1; i >= 0; i--) {
+            char c = sub.charAt(i);
+            if (c == '.' || c == '!' || c == '?') {
+                lastEnd = i + 1;
+                break;
+            }
+        }
+
+        if (lastEnd > maxLen / 3) {
+            return sub.substring(0, lastEnd).trim();
+        }
+
+        // Fall back to last space
+        int lastSpace = sub.lastIndexOf(' ');
+        if (lastSpace > maxLen / 3) {
+            return sub.substring(0, lastSpace).trim() + "...";
+        }
+
+        return sub.trim() + "...";
     }
 }
